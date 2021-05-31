@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Etch-A-Sketch</title>
+    <link rel="stylesheet" href="etch-a-sketch.css">
+</head>
+<body>
+    <h1>Etch-A-Sketch</h1>
+<button id="button" type="button">New Grid</button>
+    <div id="container"></div>
+<script>
+    const container = document.querySelector("#container");
+function defaultGrid(){
+       var num = 16;
+        container.style.setProperty("--columns-row", num);
+            //making the rows
+            for (i = 0; i < num; i++){
+                for(j = 0; j < num; j++){
+                    var box = document.createElement("div");
+                    box.classList = "box"
+                    container.appendChild(box);
+            }
+    
+     
+        }
+        color();
+}
+      
+    //Changing the background color of the boxes
+    function color(){
+     var box = document.getElementsByClassName("box");
+     var numBox = box.length;
+        function colorBoxes(event){
+            var randomColor = Math.floor(Math.random()*16777215).toString(16);
+            console.log("Mouse in");
+            var target = event.target
+            target.style.background = "#" + randomColor;
+        }
+     
+        for (var i = 0; i < numBox; i++){
+            box[i].addEventListener("mouseover", colorBoxes, false);
+        }
+     
+    }
+    //Clears the grid
+    function clearGrid(){
+        document
+            .querySelectorAll(".box")
+            .forEach((e) => e.parentNode.removeChild(e));
+    }
+
+ 
+    function newGrid(userChoice){
+      num = parseInt(userChoice);
+      container.style.setProperty("--columns-row", num);
+        if(num < 0 || num > 100){
+          console.log("The number should be betwen 0 - 100");
+          alert("The number should be betwen 0 - 100");
+          return;
+        }
+          
+        //making new rows    
+         for (i = 0; i < num; i++){
+                for(j = 0; j < num; j++){
+                    box = document.createElement("div");
+                    box.classList = "box"
+                    container.appendChild(box);
+            }
+       
+     
+        }
+       
+        color();
+       
+        }
+
+  
+      defaultGrid();   
+
+      const button = document.querySelector("#button");   
+      
+      button.addEventListener("click", () =>{
+      clearGrid();
+      userChoice = prompt("How many squares per side?");
+      newGrid(userChoice);
+  });
+</script>
+</body>
+</html>
+
